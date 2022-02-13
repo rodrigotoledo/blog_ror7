@@ -13,6 +13,15 @@ describe 'Blog operations' do
     end
   end
 
+  describe 'total values' do
+    it "should have total and views in the header" do
+      expect(page).to have_content("Total of posts: 1 - Total of views: 0")
+      post = create(:post, title: Faker::Movie.title)
+      visit post_path(post)
+      expect(page).to have_content("Total of posts: 2 - Total of views: 1")
+    end
+  end
+
   describe 'create and update' do
     before do
       click_link 'Posts'
