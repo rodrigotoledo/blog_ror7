@@ -16,9 +16,9 @@
           <%=link_to 'Posts', posts_path, class: 'nav-link' %>
         </li>
       </ul>
-      <div class="d-flex" id="total_of_site">
-        <%= turbo_stream_from "posts" %>
-        <%= turbo_frame_tag "posts" do %>
+      <div class="d-flex">
+        <%= turbo_stream_from "total_of_site" %>
+        <%= turbo_frame_tag "total_of_site" do %>
           <%=render 'layouts/total' %>
         <% end %>
       </div>

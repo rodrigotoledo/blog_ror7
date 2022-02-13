@@ -1,21 +1,18 @@
 class Post < ApplicationRecord
   has_rich_text :body
   after_create do
-    broadcast_prepend_to "home", partial: "pages/last_post", locals: {post: self}
-    broadcast_prepend_to "posts", partial: "pages/post", locals: {post: self}
-    broadcast_update_to "posts", partial: "layouts/total", target: "total_of_site"
+    broadcast_append_to "home", partial: "pages/last_post", locals: {post: self}
+    broadcast_append_to "posts", partial: "pages/post", locals: {post: self}
+    broadcast_update_to "total_of_site", partial: "layouts/total", target: "total_of_site"
   end
   after_update do
     broadcast_update_to "home", partial: "pages/last_post", locals: {post: self}
     broadcast_update_to "posts", partial: "pages/post", locals: {post: self}
-    broadcast_update_to "posts", partial: "layouts/total", target: "total_of_site"
+    broadcast_update_to "total_of_site", partial: "layouts/total", target: "total_of_site"
   end
   after_destroy_commit do
     broadcast_remove_to "home"
     broadcast_remove_to "posts"
-  end
-
-  after_destroy do
-    broadcast_update_to "posts", partial: "layouts/total", target: "total_of_site"
+    broadcast_update_to "total_of_site", partial: "layouts/total", target: "total_of_site"
   end
 end
