@@ -1,0 +1,11 @@
+<%= turbo_frame_tag dom_id(post) do %>
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title"><%=post.title%></h5>
+    <p class="card-text"><%=post.body%></p>
+  </div>
+  <div class="card-footer">
+    Criado em: <%=l post.created_at, format: :short%> - <%=post.views_count%> Visualizações - <%=link_to 'Visualizar', post_path(post), data: { turbo: false } %>
+  </div>
+</div>
+<% end %>
